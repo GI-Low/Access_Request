@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete Previous Workflow Runs
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh run list --limit 100 --json databaseId | jq -r '.[].databaseId' | xargs -I {} gh run delete {}
 
