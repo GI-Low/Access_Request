@@ -13,23 +13,12 @@ One of our cool concepts is to make everything fully hosted and managed on GitHu
 
 To become a member of the GitHub Lowlands Community, please follow these steps:
 
-1. [Create a new membership request issue](https://github.com/GI-Low/Membership/issues/new?assignees=&labels=&template=membership-request.md&title=Request+Membership)
+1. [Create a new membership request issue](https://github.com/GI-Low/Membership/issues/new/choose)
+  
 2. Fill out the template with your GitHub username and any additional information.
 
-### Quick Start
+   ![image](https://github.com/user-attachments/assets/cc6264fb-51a0-4103-9c8e-98aba905c047)
 
-* [Discussions & Product Feedback](https://github.com/orgs/gi-low/discussions)
-
-### Documentation
-
-* [GitHub Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service)
-* [GitHub Community Forum Code of Conduct](https://docs.github.com/en/site-policy/github-terms/github-community-forum-code-of-conduct)
-
-### Other Ways to Participate
-
-* [GitHub Blog](https://github.blog/)
-* [The ReadME Project & Podcast](https://github.com/readme)
-* [GitHub YouTube Channel](https://www.youtube.com/github)
 
 If your account is less than 24 hours old and you have a question, please try using the Discussions search bar above to see if your question has already been asked or simply wait a day. We apologize for any inconvenience this might cause.
 
