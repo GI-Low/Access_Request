@@ -7,7 +7,7 @@ on:
 jobs:
   add-user:
     runs-on: ubuntu-latest
-    if: github.event.issue.title == 'Request to Join Organization' # Ensure it matches the issue template title
+    if: github.event.issue.title == 'Request: GitHub Membership' # Ensure it matches the issue template title
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ISSUE_BODY=$(jq -r '.issue.body' < $GITHUB_EVENT_PATH)
-          USERNAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=Username: @)\w+')
+          USERNAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=### GitHub Username\n<!-- Please provide your GitHub username -->\n@)\w+')
           if [ -n "$USERNAME" ]; then
             curl -X PUT \
               -H "Authorization: token $GITHUB_TOKEN" \
@@ -26,4 +26,3 @@ jobs:
           else
             echo "No username found in the issue body."
             exit 1
-          fi
