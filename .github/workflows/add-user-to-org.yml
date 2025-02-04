@@ -35,6 +35,14 @@ jobs:
               -H "Authorization: token $ORG_ADMIN_TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
               https://api.github.com/orgs/GI-Low/memberships/$USERNAME
+            
+            echo "Closing the issue..."
+            ISSUE_NUMBER=$(jq -r '.issue.number' < $GITHUB_EVENT_PATH)
+            curl -v -X PATCH \
+              -H "Authorization: token $ORG_ADMIN_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              -d '{"state":"closed"}' \
+              https://api.github.com/repos/GI-Low/Membership/issues/$ISSUE_NUMBER
           else
             echo "Invalid or no username found in the issue body."
             exit 1
