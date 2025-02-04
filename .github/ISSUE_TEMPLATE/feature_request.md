@@ -1,7 +1,7 @@
 ---
 name: GitHub Membership Request
 about: Request to join the organization
-title: 'Request: GitHub Membership'
+title: 'Request GitHub Membership'
 labels: membership
 assignees: ''
 ---
