@@ -28,7 +28,7 @@ jobs:
             echo "Trying alternative pattern..."
             USERNAME=$(echo "$ISSUE_BODY" | awk -v RS='' '/<!-- Please provide your GitHub username -->/ { match($0, /@(\w+)/, arr); print arr[1] }')
             echo "Extracted username with alternative pattern: $USERNAME"
-          fi
+          # fi
 
           if [ -n "$USERNAME" ]; then
             echo "Sending invitation to $USERNAME..."
