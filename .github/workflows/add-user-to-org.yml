@@ -20,10 +20,17 @@ jobs:
           ISSUE_BODY=$(jq -r '.issue.body' < $GITHUB_EVENT_PATH)
           echo "Issue body: $ISSUE_BODY"
 
-          echo "Extracting username from issue body..."
+          echo "Extracting username from issue body using regex..."
           USERNAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=### GitHub Username\n<!-- Please provide your GitHub username -->\n@)\w+')
           echo "Extracted username: $USERNAME"
           
+          # Adding another pattern to test
+          if [ -z "$USERNAME" ]; then
+            echo "Trying alternative pattern..."
+            USERNAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=<!-- Please provide your GitHub username -->\n@)\w+')
+            echo "Extracted username with alternative pattern: $USERNAME"
+          fi
+
           if [ -n "$USERNAME" ]; then
             echo "Sending invitation to $USERNAME..."
             curl -v -X PUT \
