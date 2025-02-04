@@ -7,7 +7,7 @@ on:
 jobs:
   add-user:
     runs-on: ubuntu-latest
-    if: github.event.issue.title == 'Request GitHub Membership' # Ensure it matches the issue template title
+    if: github.event.issue.title == 'Request to Join Organization' # Ensure it matches the issue template title
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
