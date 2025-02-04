@@ -1,0 +1,29 @@
+name: Add User to Organization
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-user:
+    runs-on: ubuntu-latest
+    if: github.event.issue.title == 'Request to Join Organization' # Ensure it matches the issue template title
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Invite User to Organization
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ISSUE_BODY=$(jq -r '.issue.body' < $GITHUB_EVENT_PATH)
+          USERNAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=Username: @)\w+')
+          if [ -n "$USERNAME" ]; then
+            curl -X PUT \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              https://api.github.com/orgs/GI-Low/memberships/$USERNAME
+          else
+            echo "No username found in the issue body."
+            exit 1
+          fi
