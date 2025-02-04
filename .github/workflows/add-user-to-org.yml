@@ -5,24 +5,29 @@ on:
     types: [opened]
 
 jobs:
+  cleanup-workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete Previous Workflow Runs
+        run: |
+          gh run list --limit 100 --json databaseId | jq -r '.[].databaseId' | xargs -I {} gh run delete {}
+
   add-user:
     runs-on: ubuntu-latest
-    if: github.event.issue.title == 'Request Membership' # Ensure it matches the issue template title
+    needs: cleanup-workflows
+    if: github.event.issue.title == 'Request Membership'
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
 
       - name: Invite User to Organization
         env:
-          ORG_ADMIN_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}  # Use the PAT with admin:org scope
+          ORG_ADMIN_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }} 
         run: |
-          echo "Extracting issue body..."
-          ISSUE_BODY=$(jq -r '.issue.body' < $GITHUB_EVENT_PATH)
-          echo "Issue body: $ISSUE_BODY"
+          ISSUE_BODY=$(jq -r '.issue.body' < $GITHUB_EVENT_PATH
 
           echo "Extracting username from issue body..."
           USERNAME=$(echo "$ISSUE_BODY" | sed -n 's/^@\(.*\)/\1/p')
-          echo "Extracted username: $USERNAME"
           
           if [[ -n "$USERNAME" && "$USERNAME" =~ ^[a-zA-Z0-9_-]+$ ]]; then
             echo "Sending invitation to $USERNAME..."
