@@ -24,9 +24,9 @@ jobs:
           # USERNAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=### GitHub Username\n<!-- Please provide your GitHub username -->\n@)\w+')
           # echo "Extracted username: $USERNAME"
           
-          if [ -z "$USERNAME" ]; then
+          # if [ -z "$USERNAME" ]; then
             echo "Trying alternative pattern..."
-            USERNAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=<!-- Please provide your GitHub username -->\n@)\w+')
+            USERNAME=$(echo "$ISSUE_BODY" | grep -oP '(?<=<!-- Please provide your GitHub username -->\s*@)\w+')
             echo "Extracted username with alternative pattern: $USERNAME"
           fi
 
